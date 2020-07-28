@@ -1,1 +1,61 @@
-{ "items": [{ "id": 1, "label": "姓名", "type": "input", "parent_name": null }, { "id": 3, "label": "电话", "type": "input", "parent_name": null }, { "id": 5, "label": "性别", "type": "radio", "parent_name": null }, { "id": 8, "label": "投诉方式", "type": "select", "parent_name": null }, { "id": 12, "label": "上传图片附件", "type": "uploads", "parent_name": null }, { "id": 14, "label": "案件资料是否收齐", "type": "select", "parent_name": null }, { "id": 17, "label": "标识缺少的资料", "type": "input", "parent_name": "is_case" }, { "id": 19, "label": "地址", "type": "address", "parent_name": null }], "status": "success", "code": 200 }
+{
+  "items": [
+    {
+      "id": 22,
+      "label": "LED Light",
+      "entity_id": "light.gateway_light_04cf8c86ae3d",
+      "type": "ledlight",
+      "parent_name": null
+    },
+    {
+      "id": 23,
+      "label": "Illumination",
+      "entity_id": "sensor.illumination_04cf8c86ae3d",
+      "type": "sensor",
+      "parent_name": null
+    },
+    {
+      "id": 24,
+      "label": "Sun",
+      "entity_id": "sun.sun",
+      "type": "sun",
+      "parent_name": null
+    },
+    {
+      "id": 25,
+      "label": "Weather",
+      "entity_id": "weather.emnets",
+      "type": "weather",
+      "parent_name": null
+    },
+    {
+      "id": 26,
+      "label": "Human motion",
+      "entity_id": "binary_sensor.motion_sensor_158d000303599d",
+      "type": "motion",
+      "parent_name": null
+    },
+    {
+      "id": 27,
+      "label": "Door window",
+      "entity_id": "binary_sensor.door_window_sensor_158d0002b7ac8e",
+      "type": "binary_sensor",
+      "parent_name": null
+    },
+    {
+      "id": 28,
+      "label": "Switch",
+      "entity_id": "switch.plug_158d000354cf87",
+      "type": "binary_sensor",
+      "parent_name": null
+    },
+    {
+      "id": 29,
+      "label": "Water",
+      "type": "data",
+      "parent_name": null
+    }
+  ],
+  "status": "success",
+  "code": 200
+}

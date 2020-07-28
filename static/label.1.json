@@ -1,1 +1,11 @@
-{"items":[{"label_value":null,"label_name":""}],"status":"success","code":200,"name":"name"}
+{
+  "items": [
+    {
+      "label_value": null,
+      "label_name": ""
+    }
+  ],
+  "status": "success",
+  "code": 200,
+  "name": "name"
+}

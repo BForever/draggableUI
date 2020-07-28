@@ -7,7 +7,7 @@ export default (_self, h) => {
         'color': _self.obj.color || "#000"
       },
       domProps: {
-        innerHTML: _self.obj.label || "文本标签"
+        innerHTML: _self.obj.label || "label"
       }
     })
   ]
@@ -15,8 +15,8 @@ export default (_self, h) => {
 
 export const pConf = {
   config: true,
-  label: '文本标签',
+  label: 'label',
   color: '#000',
-  marginTop: 0,
-  marginBottom: 24
+  marginTop: 5,
+  marginBottom: 5
 }

@@ -11,6 +11,12 @@ import p from './control/P';
 import uploads from './control/Uploads';
 import datepicker from './control/DatePicker';
 import address from './control/Address';
+import recordtable from './control/RecordTable';
+import xiaomi from "./control/XiaomiGateway";
+import ledlight from "./control/LEDLight";
+import illumisensor from "./control/IllumiSensor";
+import singlestate from "./control/SingleState";
+import singledataupload from "./control/SingleDataUpload";
 
 import trigger from './config/trigger';
 
@@ -18,15 +24,21 @@ const form_item = {
   title,
   hr,
   p,
-  input,
-  select,
-  radio,
-  checkbox,
-  datepicker,
-  cascader,
-  address,
-  uploads,
-  text,
+  // input,
+  // select,
+  // radio,
+  // checkbox,
+  // datepicker,
+  // cascader,
+  // address,
+  // uploads,
+  // text,
+  // test,
+  // xiaomi,
+  ledlight,
+  singlestate,
+  recordtable,
+  singledataupload,
 };
 
 const displayControl = (_self, sortableItem, name, value) => {
@@ -62,63 +74,66 @@ export default {
     // 已被绑定name,且require为必填,视为校验字段
     const validate = !!this.obj.name && !!this.obj.require;
     // 非 Title Hr P 需要FormItem
-    if (['title', 'hr', 'p'].indexOf((this.ele.toLowerCase())) < 0) {
-      // 关联的组件判断是否展示
-      if (this.obj.relation && !displayControl(this, this.sortableItem, this.obj.relation_name, this.obj.relation_value)) {
-        // 隐藏该控件并设置该控件标记为隐藏
-        this.$emit('changeVisibility', this.index, false);
-        return h("span");
-      }
-      // 设置该控件标记为显示
-      this.$emit('changeVisibility', this.index, true);
-      let FormItem = {
-        class: {
-          'items': true,
-          'sortable-items-required': validate
-        },
-        props: {
-          label: (this.obj.label || this.ele) + '：',
-          // 指定验证name
-          prop: this.obj.name || 'temp',
-          // 验证规则
-          rules: {
-            required: validate,
-            message: this.obj.ruleError || '该项为必填项',
-            trigger: trigger[this.obj.type],
-            validator: (rule, value, callback) => {
-              // 没有配置按钮并且允许验证
-              if (!this.configIcon && validate && (Array.isArray(value) ? !value.length : !value)) {
-                callback(new Error('该项为必填项'));
-              } else {
-                callback();
-              }
-            }
-          },
-        },
+    // if (['title', 'hr', 'p','xiaomi'].indexOf((this.ele.toLowerCase())) < 0) {
+    //   // 关联的组件判断是否展示
+    //   if (this.obj.relation && !displayControl(this, this.sortableItem, this.obj.relation_name, this.obj.relation_value)) {
+    //     // 隐藏该控件并设置该控件标记为隐藏
+    //     this.$emit('changeVisibility1', this.index, false);
+    //     return h("span");
+    //   }
+    //   // 设置该控件标记为显示
+    //   this.$emit('changeVisibility1', this.index, true);
+    //   let FormItem = {
+    //     class: {
+    //       'items': true,
+    //       'sortable-items-required': validate
+    //     },
+    //     props: {
+    //       label: (this.obj.label || this.ele) + '：',
+    //       // 指定验证name
+    //       prop: this.obj.name || 'temp',
+    //       // 验证规则
+    //       rules: {
+    //         required: validate,
+    //         message: this.obj.ruleError || '该项为必填项',
+    //         trigger: trigger[this.obj.type],
+    //         validator: (rule, value, callback) => {
+    //           // 没有配置按钮并且允许验证
+    //           if (!this.configIcon && validate && (Array.isArray(value) ? !value.length : !value)) {
+    //             callback(new Error('该项为必填项'));
+    //           } else {
+    //             callback();
+    //           }
+    //         }
+    //       },
+    //     },
+    //     style: {
+    //       // 是否显示行内元素
+    //       display: this.obj.inlineBlock ? 'inline-block' : 'block',
+    //       // 行内元素width为30%
+    //       width: this.obj.inlineBlock ? '33%' : 'auto',
+    //     }
+    //   };
+    //   return h(
+    //     "FormItem", FormItem,
+    //     arr.concat(item_icon)
+    //   );
+    // } else {
+    return h(
+      "div", {
         style: {
-          // 是否显示行内元素
-          display: this.obj.inlineBlock ? 'inline-block' : 'block',
-          // 行内元素width为30%
-          width: this.obj.inlineBlock ? '33%' : 'auto',
-        }
-      };
-      return h(
-        "FormItem", FormItem,
-        arr.concat(item_icon)
-      );
-    } else {
-      return h(
-        "div", {
-          style: {
-            'position': 'relative'
-          },
-          class: {
-            items: true
-          },
+          'position': 'relative'
         },
-        arr.concat(item_icon)
-      );
-    }
+        props:{
+          simplified: this.simplified,
+        },
+        class: {
+          items: true
+        },
+      },
+      arr.concat(item_icon)
+    );
+    // }
   },
   props: {
     // 当前控件的类型
@@ -126,10 +141,11 @@ export default {
       type: String,
       default: "input"
     },
+    simplified:false,
     // 当前控件的配置
     obj: {
       type: Object,
-      default () {
+      default() {
         return {};
       }
     },
@@ -141,7 +157,7 @@ export default {
     // 整个表单的数据
     data: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
@@ -155,7 +171,7 @@ export default {
     // 当前被clone控件列表
     sortableItem: {
       type: Array,
-      default () {
+      default() {
         return [];
       }
     }

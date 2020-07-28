@@ -12,6 +12,6 @@ export default (_self, h) => {
 export const hrConf = {
   // 是否可配置
   config: true,
-  marginTop: 0,
-  marginBottom: 24
+  marginTop: 5,
+  marginBottom: 5
 }

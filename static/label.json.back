@@ -1,0 +1,90 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "label": "姓名",
+      "type": "input",
+      "parent_name": null
+    },
+    {
+      "id": 3,
+      "label": "电话",
+      "type": "input",
+      "parent_name": null
+    },
+    {
+      "id": 5,
+      "label": "性别",
+      "type": "radio",
+      "parent_name": null
+    },
+    {
+      "id": 8,
+      "label": "投诉方式",
+      "type": "select",
+      "parent_name": null
+    },
+    {
+      "id": 12,
+      "label": "上传图片附件",
+      "type": "uploads",
+      "parent_name": null
+    },
+    {
+      "id": 14,
+      "label": "案件资料是否收齐",
+      "type": "select",
+      "parent_name": null
+    },
+    {
+      "id": 17,
+      "label": "标识缺少的资料",
+      "type": "input",
+      "parent_name": "is_case"
+    },
+    {
+      "id": 19,
+      "label": "地址",
+      "type": "address",
+      "parent_name": null
+    },
+    {
+      "id": 21,
+      "label": "设备",
+      "type": "xiaomiGateway",
+      "parent_name": null
+    },
+    {
+      "id": 22,
+      "label": "小米网关LED灯",
+      "entity_id": "light.gateway_light_04cf8c86ae3d",
+      "type": "ledlight",
+      "parent_name": null
+    },
+    {
+      "id": 23,
+      "label": "小米网关光照传感器",
+      "entity_id": "sensor.illumination_04cf8c86ae3d",
+      "type": "sensor",
+      "parent_name": null
+    },
+    {
+      "id": 24,
+      "label": "太阳",
+      "entity_id": "sun.sun",
+      "type": "sun",
+      "parent_name": null
+    },
+    {
+      "id": 25,
+      "label": "天气",
+      "entity_id": "weather.emnets",
+      "type": "weather",
+      "parent_name": null
+    }
+
+
+  ],
+  "status": "success",
+  "code": 200
+}
