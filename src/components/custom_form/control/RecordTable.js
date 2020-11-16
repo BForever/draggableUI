@@ -24,7 +24,7 @@ export let recordTableConf = {
   // 是否可配置
   config: true,
   // 控件左侧label内容
-  label: 'Table',
+  label: 'State Record Table',
   // 是否被渲染
   visibility: true
 };

@@ -13,11 +13,24 @@ import datepicker from './control/DatePicker';
 import address from './control/Address';
 import recordtable from './control/RecordTable';
 import xiaomi from "./control/XiaomiGateway";
-import ledlight from "./control/LEDLight";
+import ledlightlarge from "./control/LEDLightLarge";
+import ledlightsmall from "./control/LEDLightSmall";
 import illumisensor from "./control/IllumiSensor";
 import singlestate from "./control/SingleState";
 import singledataupload from "./control/SingleDataUpload";
-
+import singlestringupload from "./control/SingleStringUpload";
+import photogallary from "./control/PhotoGallary";
+import printerhistory from "./control/PrinterHistory";
+import printerfile from "./control/PrinterFile";
+import shiftcontrol from "./control/ShiftControl";
+import routersettings from "./control/RouterSettings"
+import routerspeed from "./control/RouterSpeed";
+import cameraimage from "./control/CameraImage";
+import cameracontrol from "./control/CameraControl";
+import ovencontrol from "./control/OvenControl";
+import ovenmode from "./control/OvenMode";
+import jumpto from "./control/JumpTo";
+import singleswitch from "./control/SingleSwitch";
 import trigger from './config/trigger';
 
 const form_item = {
@@ -28,17 +41,31 @@ const form_item = {
   // select,
   // radio,
   // checkbox,
-  // datepicker,
+  datepicker,
   // cascader,
   // address,
   // uploads,
   // text,
   // test,
   // xiaomi,
-  ledlight,
+  ledlightlarge,
+  ledlightsmall,
   singlestate,
   recordtable,
   singledataupload,
+  singlestringupload,
+  photogallary,
+  printerhistory,
+  printerfile,
+  shiftcontrol,
+  routersettings,
+  routerspeed,
+  cameraimage,
+  cameracontrol,
+  ovencontrol,
+  ovenmode,
+  jumpto,
+  singleswitch,
 };
 
 const displayControl = (_self, sortableItem, name, value) => {

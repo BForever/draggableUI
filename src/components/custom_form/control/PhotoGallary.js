@@ -1,19 +1,20 @@
 import singleState from "../components/singleState";
 import Vue from "vue";
+import photoGallary from "../components/photoGallary";
 
-Vue.component("singleState",singleState);
+Vue.component("photoGallary",photoGallary);
 
 export default (_self, h) => {
   if(typeof _self.obj.dict ==="string"){
     _self.obj.dict = JSON.parse(_self.obj.dict)
   }
   return [
-    h("singleState", {
+    h("photoGallary", {
       attrs: {
       },
       props: {
         // label:(_self.obj.label==='Single State Device'&&_self.obj.dict)?JSON.parse(_self.obj.dict).label:_self.obj.label,
-        label:(_self.obj.label==='Single State Device'&&_self.obj.dict)?_self.obj.dict.label:_self.obj.label,
+        label:(_self.obj.label==='Photo Gallary'&&_self.obj.dict)?_self.obj.dict.label:_self.obj.label,
         dict:_self.obj.dict?_self.obj.dict:null,
       },
       on: {
@@ -30,11 +31,11 @@ export default (_self, h) => {
   ];
 };
 
-export let singleStateConf = {
+export let photoGallaryConf = {
   // 是否可配置
   config: true,
   // 控件左侧label内容
-  label: 'Single State Display',
+  label: 'Photo Gallary',
   // 是否被渲染
   visibility: true
 }

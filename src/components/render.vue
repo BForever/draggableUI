@@ -79,6 +79,7 @@
         formData: {},
         lock: true,
         objName:null,
+        userName:null,
       }
     },
     watch: {
@@ -147,7 +148,8 @@
     ,
     created() {
       this.objName = this.getQueryStringHash("obj");
-      this.$http.get('/layout/'+this.objName).then(d => {
+      this.userName = this.getQueryStringHash("user");
+      this.$http.get('/layout/'+this.objName+'_'+this.userName).then(d => {
         this.template_form1 = d.data.form1;
         this.template_form2 = d.data.form2;
       }).catch(err=>{

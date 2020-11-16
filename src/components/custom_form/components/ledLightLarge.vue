@@ -1,53 +1,84 @@
 <template>
-  <md-card style="height: 99px">
-    <md-subheader>
-      {{this.label}}
-    </md-subheader>
-    <md-card-content>
-      {{this.state}}
-    </md-card-content>
+  <md-card>
+    <div class="md-layout">
+      <div class="md-layout-item ">
+        <md-subheader style="float: left">
+          {{this.label}}
+        </md-subheader>
+      </div>
+      <div class="md-layout-item md-size-25">
+        <input type="color" style="float: left;margin-top: 15px" v-bind:value="color">
+      </div>
+<!--      <div class="md-layout-item md-size-25">-->
+<!--        <md-switch v-model="lighton" style="float: right"></md-switch>-->
+<!--      </div>-->
+    </div>
+
+
   </md-card>
 </template>
 
 <script>
   export default {
-    name: "singleState",
+    name: "ledLightLarge",
     props: {
-      label: "",
-      dict: null,
+      label:"",
     },
     data() {
       return {
-        state: "NULL",
+        lighton: false,
+        color_r: 255,
+        color_g: 255,
+        color_b: 255,
+        brightness: 255,
         host: "192.168.31.232",
         token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0OTZmN2UwYTk3Mjg0M2E5ODM4MDYwNzYyNjhmYWY0NSIsImlhdCI6MTU5MzU4NjgxMiwiZXhwIjoxOTA4OTQ2ODEyfQ.-nKtmG7h8O-bm_Df6_CTUaTRAjuiNj0NzfL15wxecI8",
         connection: null,
         messageId: 0,
       }
     },
-    watch: {},
-    computed: {
-      /**
-       * @return {boolean}
-       */
-      HAdevice() {
-        if(!!this.dict){
-          if(this.dict.type==="data"){
-            return false;
-          }
-        }
-        return true;
+    watch: {
+      color(val) {
+        this.lighton = true;
+        this.turnOn();
       },
-      /**
-       * @return {boolean}
-       */
-      pureData() {
-        if(!!this.dict){
-          if(this.dict.type==="data"){
-            return true;
+      brightness(val) {
+        this.lighton = true;
+        this.turnOn();
+      },
+
+      lighton(val) {
+        if (val) {
+          this.turnOn()
+        } else {
+          this.turnOff()
+        }
+      }
+    },
+    computed: {
+      color() {
+        let r = this.color_r.toString(16);
+        let g = this.color_g.toString(16);
+        let b = this.color_b.toString(16);
+        if (r.length < 2) {
+          r = '0' + r;
+        }
+        if (g.length < 2) {
+          g = '0' + g;
+        }
+        if (b.length < 2) {
+          b = '0' + b;
+        }
+        let res = '#' + r + g + b;
+        return res;
+      },
+      dragOptions2() {
+        return {
+          group: {
+            // 只允许放置shared的控件,禁止pull
+            put: ["shared"]
           }
         }
-        return false;
       }
     },
     methods: {
@@ -69,6 +100,20 @@
           "event_type": "state_changed"
         }
         this.sendMessageObject(message);
+      },
+      turnOn() {
+        let data = {
+          entity_id: "light.gateway_light_04cf8c86ae3d",
+          rgb_color: [this.color_r, this.color_g, this.color_b],
+          brightness: this.brightness,
+        };
+        this.call_service("light", "turn_on", data)
+      },
+      turnOff() {
+        let data = {
+          entity_id: "light.gateway_light_04cf8c86ae3d",
+        };
+        this.call_service("light", "turn_off", data)
       },
       sendAuth: function () {
         let authMessage = {
@@ -94,13 +139,6 @@
         };
         this.sendMessageObject(message);
       },
-      get_services: function () {
-        let message = {
-          "id": ++this.messageId,
-          "type": "get_services",
-        };
-        this.sendMessageObject(message);
-      },
 
       onmessage: function (event) {
         console.log(event);
@@ -117,7 +155,6 @@
               console.log("authentication success")
               this.subscribe_events();
               this.get_states();
-              this.get_services();
               break
             }
             case "auth_invalid": {
@@ -126,16 +163,6 @@
             }
             case "result": {
               console.log("result: ", data.success)
-              if (data.hasOwnProperty("result")) {
-                let result = data.result;
-                for (let i in result) {
-                  if (!!this.dict) {
-                    if (result[i]["entity_id"] === this.dict.entity_id) {
-                      this.state = result[i]["state"];
-                    }
-                  }
-                }
-              }
               break
             }
             case "event": {
@@ -148,34 +175,31 @@
       onevent: function (event) {
         let data = event.data;
         console.log(data);
-        if (!!this.dict) {
-          switch (event.event_type) {
-            case "state_changed": {
-              if (data.entity_id === this.dict.entity_id) {
-                console.log("device id:", data.entity_id);
-                console.log("old state:", data.old_state.state);
-                console.log("new state:", data.new_state.state);
-                console.log("change this.state to ",data.new_state.state);
-                this.state = data.new_state.state;
-              }
-              break
+        switch (event.event_type) {
+
+          case "state_changed": {
+            if (data.entity_id === "light.gateway_light_04cf8c86ae3d") {
+              console.log("old state:", data.old_state.state);
+              console.log("new state:", data.new_state.state);
+              this.lighton = data.new_state.state === "on";
             }
+
+            break
           }
         }
       }
     },
     created: function () {
-      if (this.HAdevice) {
-        console.log("Starting connection to HomeAssistant WebSocket server")
-        this.connection = new WebSocket("ws://" + this.host + ":8123/api/websocket")
+      console.log("Starting connection to HomeAssistant WebSocket server")
+      this.connection = new WebSocket("ws://" + this.host + ":8123/api/websocket")
 
-        this.connection.onmessage = this.onmessage;
+      this.connection.onmessage = this.onmessage;
 
-        this.connection.onopen = function (event) {
-          console.log(event);
-          console.log("Successfully connected to the HomeAssistant websocket server...")
-        }
+      this.connection.onopen = function (event) {
+        console.log(event);
+        console.log("Successfully connected to the HomeAssistant websocket server...")
       }
+
     }
   }
 </script>

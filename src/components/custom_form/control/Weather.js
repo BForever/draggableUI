@@ -1,19 +1,18 @@
 import Vue from "vue";
-import datePicker from "../components/datePicker";
+import weather from "../components/weather";
 
-Vue.component("datePicker",datePicker);
+Vue.component("weather",weather);
 
 export default (_self, h) => {
   if(typeof _self.obj.dict ==="string"){
     _self.obj.dict = JSON.parse(_self.obj.dict)
   }
   return [
-    h("datePicker", {
+    h("weather", {
       attrs: {
       },
       props: {
-        label:(_self.obj.label==='Power Control'&&_self.obj.dict)?_self.obj.dict.label:_self.obj.label,
-        jumpTo:_self.obj.jumpTo,
+        label:(_self.obj.label==='Weather'&&_self.obj.dict)?_self.obj.dict.label:_self.obj.label,
       },
       on: {
       }
@@ -21,12 +20,11 @@ export default (_self, h) => {
   ];
 };
 
-export let datePickerConf = {
+export let cameraControlConf = {
   // 是否可配置
   config: true,
   // 控件左侧label内容
-  label: 'Calendar',
-
+  label: 'Weather',
   // 是否被渲染
   visibility: true
 };

@@ -1,11 +1,11 @@
-import ledLight from "../components/ledLight";
+import ledLightLarge from "../components/ledLightLarge";
 import Vue from "vue";
 
-Vue.component("ledLight",ledLight);
+Vue.component("ledLightLarge",ledLightLarge);
 
 export default (_self, h) => {
   return [
-    h("ledLight", {
+    h("ledLightLarge", {
       attrs: {
         // type: "textarea",
         // placeholder: _self.obj.placeholder || "这是一个测试",
@@ -30,13 +30,13 @@ export default (_self, h) => {
   ];
 };
 
-export let ledLightConf = {
+export let ledLightLargeConf = {
   // 对应数据库内类型
   type: 'textarea',
   // 是否可配置
   config: true,
   // 控件左侧label内容
-  label: 'LED light',
+  label: 'LED Control',
   // 绑定的值
   value: "",
   // 表单name

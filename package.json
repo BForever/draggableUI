@@ -18,7 +18,8 @@
     "vue": "^2.6.11",
     "vue-material": "^1.0.0-beta-14",
     "vue-router": "^3.0.1",
-    "vuedraggable": "^2.16.0"
+    "vuedraggable": "^2.16.0",
+    "material-design-icons": "^3.0.1"
   },
   "devDependencies": {
     "ajv": "^6.4.0",

@@ -1,54 +1,40 @@
 <template>
   <div>
-    <md-card class="md-scrollbar">
-      <md-subheader>{{ this.label }}</md-subheader>
-        <md-table >
+    <md-card>
+      <md-card-header>
+        <div >{{this.label}}</div>
+      </md-card-header>
 
-          <md-table-row>
-            <md-table-head md-numeric>ID</md-table-head>
-            <md-table-head>Time</md-table-head>
-            <md-table-head>Value</md-table-head>
-            <md-table-head>User</md-table-head>
-          </md-table-row>
-          <md-table-row v-for="record in records">
-            <md-table-cell md-numeric>{{record.id}}</md-table-cell>
-            <md-table-cell>{{record.time.getMonth()+1}}-{{record.time.getDate()}}
-              {{record.time.getHours()}}:{{record.time.getMinutes()}}:{{record.time.getSeconds()}}
+      <md-card-content>
+        <md-table v-model="records"  @md-selected="onSelect">
+          <md-table-row slot="md-table-row" slot-scope="{ item }"  md-selectable="single">
+            <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{item.id}}</md-table-cell>
+            <md-table-cell md-label="Time" >{{item.time.getMonth()+1}}-{{item.time.getDate()}}
+              {{item.time.getHours()}}:{{item.time.getMinutes()}}:{{item.time.getSeconds()}}
             </md-table-cell>
-            <md-table-cell>{{record.value}}</md-table-cell>
-            <md-table-cell>{{record.user}}</md-table-cell>
+            <md-table-cell md-label="File" >{{item.value}}</md-table-cell>
+            <md-table-cell md-label="User" >{{item.user}}</md-table-cell>
           </md-table-row>
         </md-table>
+      </md-card-content>
+
+      <md-card-actions>
+        <md-button>Print</md-button>
+      </md-card-actions>
     </md-card>
 
-
-    <!--    <table>-->
-    <!--      <tr>-->
-    <!--        <th>编号</th>-->
-    <!--        <th>时间</th>-->
-    <!--        <th>value</th>-->
-    <!--        <th>用户</th>-->
-    <!--      </tr>-->
-    <!--      <tr v-for="record in records">-->
-    <!--        <td>{{record.id}}</td>-->
-    <!--        <td>{{record.time.getFullYear()}}-{{record.time.getMonth()+1}}-{{record.time.getDate()}}-->
-    <!--          {{record.time.getHours()}}:{{record.time.getMinutes()}}:{{record.time.getSeconds()}}-->
-    <!--        </td>-->
-    <!--        <td>{{record.value}}</td>-->
-    <!--        <td>{{record.user}}</td>-->
-    <!--      </tr>-->
-    <!--    </table>-->
   </div>
 </template>
 
 <script>
   export default {
-    name: "recordTable",
+    name: "printerHistory",
     props: {
       label: "",
     },
     data() {
       return {
+        selected:{},
         records: [
           {
             id: 1,
@@ -90,7 +76,7 @@
       }
     },
     created() {
-      if (this.label!=="Table") {
+      if (this.label!=="Printer") {
         let label = this.label;
         let label_str = label.replace(/\s*/g, "");
         this.$http.get("/data/" + label_str).then(res => {
@@ -105,7 +91,11 @@
       }
     }
     ,
-    methods: {}
+    methods: {
+      onSelect(item){
+        this.selected = item;
+      }
+    }
   }
 </script>
 

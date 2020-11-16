@@ -12,31 +12,62 @@ import {datePickerConf} from './control/DatePicker'
 import {addressConf} from './control/Address';
 import {recordTableConf} from "./control/RecordTable";
 import {xiaomiConf} from "./control/XiaomiGateway";
-import {ledLightConf} from "./control/LEDLight";
+import {ledLightLargeConf} from "./control/LEDLightLarge";
+import {ledLightSmallConf} from "./control/LEDLightSmall";
 import {illumiSensorConf} from "./control/IllumiSensor";
 import {singleStateConf} from "./control/SingleState";
 import {singleDataUploadConf} from "./control/SingleDataUpload";
-
+import {singleStringUploadConf} from "./control/SingleStringUpload";
+import {photoGallaryConf} from "./control/PhotoGallary";
+import {printerHistoryConf} from "./control/PrinterHistory";
+import {printerFileConf} from "./control/PrinterFile";
+import {shiftControlConf} from "./control/ShiftControl";
+import {routerSettingsConf} from "./control/RouterSettings";
+import {routerSpeedConf} from "./control/RouterSpeed";
+import {cameraImageConf} from "./control/CameraImage";
+import {cameraControlConf} from "./control/CameraControl";
+import {ovenControlConf} from "./control/OvenControl";
+import {ovenModeConf} from "./control/OvenMode";
+import {jumpToConf} from "./control/JumpTo";
+import {singleSwitchConf} from "./control/SingleSwitch";
 
 const formList = {
-  title: titleConf,
-  hr: hrConf,
-  p: pConf,
+  // title: titleConf,
+  // hr: hrConf,
+  // p: pConf,
   // input: inputConf,
   // select: selectConf,
   // radio: radioConf,
   // checkbox: checkBoxConf,
-  // datepicker: datePickerConf,
+  singleswitch:singleSwitchConf,
+  shiftcontrol:shiftControlConf,
+
+  ledlightsmall:ledLightSmallConf,
+  cameracontrol:cameraControlConf,
+  ledlightlarge:ledLightLargeConf,
+  singlestate:singleStateConf,
+  recordtable:recordTableConf,
+
+  cameraimage:cameraImageConf,
+  singlestringupload:singleStringUploadConf,
+  printerfile:printerFileConf,
+  datepicker: datePickerConf,
+  jumpto:jumpToConf,
   // cascader: cascaderConf,
   // address: addressConf,
   // uploads: uploadsConf,
   // text: textConf,
   // test: testConf,
   // xiaomi :xiaomiConf,
-  ledlight:ledLightConf,
-  singlestate:singleStateConf,
-  recordtable:recordTableConf,
-  singledataupload:singleDataUploadConf,
+  // singledataupload:singleDataUploadConf,
+  // photoGallary:photoGallaryConf,
+  // printerhistory:printerHistoryConf,
+  // routersettings:routerSettingsConf,
+  // routerspeed:routerSpeedConf,
+  // ovencontrol:ovenControlConf,
+  // ovenmode:ovenModeConf,
+
+
 };
 let list_arr = [];
 for (let i in formList) {

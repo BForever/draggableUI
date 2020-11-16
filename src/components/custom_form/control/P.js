@@ -4,6 +4,7 @@ export default (_self, h) => {
       style: {
         'margin-bottom': _self.obj.marginBottom + 'px',
         'margin-top': _self.obj.marginTop + 'px',
+        'margin-left': _self.obj.marginLeft + 'px',
         'color': _self.obj.color || "#000"
       },
       domProps: {
@@ -15,8 +16,9 @@ export default (_self, h) => {
 
 export const pConf = {
   config: true,
-  label: 'label',
+  label: 'Reminder',
   color: '#000',
   marginTop: 5,
-  marginBottom: 5
+  marginBottom: 5,
+  marginLeft:20,
 }
